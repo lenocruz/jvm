@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  name: httpd
   labels:
-    app: nginx
+    app: httpd
     argocd.argoproj.io/managed-by: argocd
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nginx
+      app: httpd
   template:
     metadata:
       labels:
-        app: nginx
+        app: httpd
     spec:
       containers:
-      - name: nginx
+      - name: httpd
         image: 'quay.io/centos7/httpd-24-centos7:centos7'
         ports:
         - containerPort: 8080
@@ -24,13 +24,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx
+  name: httpd
   labels:
-    app: nginx
+    app: httpd
     argocd.argoproj.io/managed-by: argocd
 spec:
   selector:
-    app: nginx
+    app: httpd
   ports:
     - protocol: TCP
       port: 8080
